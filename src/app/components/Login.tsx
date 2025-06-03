@@ -26,8 +26,16 @@ export default function Login() {
           withCredentials: true,
         }
       );
+      
       console.log("Login successful", response.data);
-      router.push("/dashboard");
+      const userRole = response.data.user?.role || response.data.role;
+      
+      if (userRole === "admin") {
+        router.push("/dashboard");
+      } else {
+        router.push("/welcome");
+      }
+      
     } catch (error) {
       console.error("Login failed:", error);
       setError("Invalid username or password");
@@ -62,12 +70,12 @@ export default function Login() {
                 htmlFor="username"
                 className="block text-sm font-medium text-gray-700"
               >
-                username
+                Username
               </label>
               <input
                 id="username"
                 name="username"
-                type="username"
+                type="text"
                 autoComplete="username"
                 required
                 value={username}
