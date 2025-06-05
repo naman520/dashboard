@@ -15,8 +15,8 @@ export default function ProtectedClient({ children }: Props) {
   useEffect(() => {
     const checkAccess = async () => {
       try {
-        await axios.get('http://localhost:5000/api/protected/validate-dashboard-access', {
-        //await axios.get('https://dash-backend-vxau.onrender.com/api/protected/validate-dashboard-access', {
+       // await axios.get('http://localhost:5000/api/protected/validate-dashboard-access', {
+        await axios.get('https://dash-backend-vxau.onrender.com/api/protected/validate-dashboard-access', {
           withCredentials: true,
         });
         setAuthorized(true);
