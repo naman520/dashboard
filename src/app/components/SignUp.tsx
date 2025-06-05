@@ -28,8 +28,8 @@ export default function SignUp() {
 
     try {
       const response = await axios.post(
-       //"http://localhost:5000/api/auth/register", // https://dash-backend-vxau.onrender.com/api/auth/register - production link 
-       `https://dash-backend-vxau.onrender.com/api/auth/register`,
+       "http://localhost:5000/api/auth/register", // https://dash-backend-vxau.onrender.com/api/auth/register - production link 
+       //"https://dash-backend-vxau.onrender.com/api/auth/register",
         formData,
         {
           withCredentials: true,
