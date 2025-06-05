@@ -103,8 +103,9 @@ export default function Userstable() {
     if (window.confirm("Are you sure you want to delete this user?")) {
       try {
         await axios.delete(
-          `http://localhost:5000/api/users/${userId}`,
-          //"https://dash-backend-vxau.onrender.com/api/users/${userId}",
+          
+          //"http://localhost:5000/api/users/${userId}",
+          "https://dash-backend-vxau.onrender.com/api/users/${userId}",
           {
             withCredentials: true,
           }
