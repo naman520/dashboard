@@ -4,9 +4,15 @@ import SignUp from "../components/SignUp";
 import Userstable from "../components/Userstable";
 import ProtectedClient from "../components/ProtectedRoute";
 
+interface Team {
+  id: number;
+  name: string;
+}
+
 export default function Dashboard() {
   const [modal, setModal] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [teams, setTeams] = useState<Team[]>([]);
   const options = ["Add User", "See All Users"];
 
   const toggleModal = () => {
@@ -18,6 +24,34 @@ export default function Dashboard() {
     toggleModal();
     console.log(`Selected: ${option}`);
   };
+
+  const handleCloseSignUp = () => {
+    setSelectedOption(null);
+  };
+
+  const handleUserAdded = () => {
+    setSelectedOption(null);
+    // You might want to refresh the user table here if needed
+  };
+
+  // Fetch teams when component mounts
+  React.useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        //const response = await fetch("http://localhost:5000/api/teams", {
+        const response = await fetch("https://dash-backend-vxau.onrender.com/api/teams", {
+          credentials: "include",
+        });
+        const data = await response.json();
+        if (data.success) {
+          setTeams(data.data);
+        }
+      } catch (error) {
+        console.error("Error fetching teams:", error);
+      }
+    };
+    fetchTeams();
+  }, []);
 
   return (
     <ProtectedClient>
@@ -64,7 +98,11 @@ export default function Dashboard() {
             </h2>
             {selectedOption === "Add User" && (
               <div className="mt-2">
-                <SignUp />
+                <SignUp 
+                  onClose={handleCloseSignUp} 
+                  onUserAdded={handleUserAdded}
+                  teams={teams}
+                />
               </div>
             )}
             {selectedOption === "See All Users" && (

@@ -12,38 +12,43 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
-    setError("");
-
-    try {
-      const response = await axios.post(
-        //"http://localhost:5000/api/auth/login",
-        "https://dash-backend-vxau.onrender.com/api/auth/login",
-        {
-          username,
-          password,
-        },
-        {
-          withCredentials: true,
-        }
-      );
-      
-      console.log("Login successful", response.data);
-      const userRole = response.data.user?.role || response.data.role;
-      
-      if (userRole === "admin") {
-        router.push("/dashboard");
-      } else {
-        router.push("/welcome");
-      }
-      
-    } catch (error) {
-      console.error("Login failed:", error);
-      setError("Invalid username or password");
-    } finally {
-      setIsLoading(false);
+  setIsLoading(true);
+  setError("");
+  
+  try {
+    const response = await axios.post(
+      //"http://localhost:5000/api/auth/login",
+    "https://dash-backend-vxau.onrender.com/api/auth/login",
+      { username, password },
+      { withCredentials: true }
+    );
+    
+    console.log("Login successful", response.data);
+    
+    // Store user info (without token) in context or state
+    const userData = {
+      id: response.data.data.id,
+      username: response.data.data.username,
+      role: response.data.role,
+      teams: response.data.data.teams || [] // Add teams array
+    };
+    
+    // Redirect based on role and teams
+    if (userData.role === "admin") {
+      router.push("/dashboard");
+    } else if (userData.teams.length > 0) {
+      router.push(`/team/${userData.teams[0].id}`);
+    } else {
+      router.push("/welcome");
     }
-  };
+    
+  } catch (error) {
+    console.error("Login failed:", error);
+    setError("Invalid username or password");
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
