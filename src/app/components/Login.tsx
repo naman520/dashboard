@@ -4,51 +4,58 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 
 export default function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  // Properly typed state declarations
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  setIsLoading(true);
-  setError("");
-  
-  try {
-    const response = await axios.post(
-      //"http://localhost:5000/api/auth/login",
-    "https://dash-backend-vxau.onrender.com/api/auth/login",
-      { username, password },
-      { withCredentials: true }
-    );
+    setIsLoading(true);
+    setError("");
     
-    console.log("Login successful", response.data);
-    
-    // Store user info (without token) in context or state
-    const userData = {
-      id: response.data.data.id,
-      username: response.data.data.username,
-      role: response.data.role,
-      teams: response.data.data.teams || [] // Add teams array
-    };
-    
-    // Redirect based on role and teams
-    if (userData.role === "admin") {
-      router.push("/dashboard");
-    } else if (userData.teams.length > 0) {
-      router.push(`/team/${userData.teams[0].id}`);
-    } else {
-      router.push("/welcome");
+    try {
+    //  const API_URL =  "http://localhost:5000";
+      const API_URL =  "https://dash-backend-vxau.onrender.com";
+      const response = await axios.post(
+        `${API_URL}/api/auth/login`,
+        { username, password },
+        { withCredentials: true }
+      );
+      
+      console.log("Login successful", response.data);
+      
+      if (response.data.token) {
+        localStorage.setItem('authToken', response.data.token);
+        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+      }
+      
+      const userData = {
+        id: response.data.data.id,
+        username: response.data.data.username,
+        role: response.data.role,
+        teams: response.data.data.teams || []
+      };
+      
+      localStorage.setItem('userData', JSON.stringify(userData));
+      
+      if (userData.role === "admin") {
+        router.push("/dashboard");
+      } else if (userData.teams.length > 0) {
+        router.push(`/team/${userData.teams[0].id}`);
+      } else {
+        router.push("/welcome");
+      }
+      
+    } catch (error: any) {
+      console.error("Login failed:", error);
+      setError(error.response?.data?.message || "Invalid username or password");
+    } finally {
+      setIsLoading(false);
     }
-    
-  } catch (error) {
-    console.error("Login failed:", error);
-    setError("Invalid username or password");
-  } finally {
-    setIsLoading(false);
-  }
-};
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
