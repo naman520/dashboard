@@ -70,7 +70,7 @@ export default function TeamManager() {
       try {
         await axios.delete(
           //`http://localhost:5000/api/teams/${teamId}`,
-          `https://dash-backend-vxau.onrender.com/api/teams/${teamId}`,
+          `https://dash-backend-l5cs.onrender.com/api/teams/${teamId}`,
           { withCredentials: true }
         );
         fetchTeams();

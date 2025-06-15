@@ -55,7 +55,7 @@ export default function Userstable() {
     try {
       const response = await axios.get(
         //"http://localhost:5000/api/auth/getAllUsers",
-        "https://dash-backend-vxau.onrender.com/api/auth/getAllUsers",
+        "https://dash-backend-l5cs.onrender.com/api/auth/getAllUsers",
         {
           withCredentials: true,
           headers: {
