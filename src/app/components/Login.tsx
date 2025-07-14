@@ -17,8 +17,8 @@ export default function Login() {
     setError("");
     
     try {
-    //const API_URL =  "http://localhost:5000";
-    const API_URL =  "https://dash-backend-l5cs.onrender.com";
+    const API_URL =  "http://localhost:5000";
+    //const API_URL =  "https://dash-backend-l5cs.onrender.com";
       const response = await axios.post(
         `${API_URL}/api/auth/login`,
         { username, password },
@@ -46,7 +46,7 @@ export default function Login() {
       } else if (userData.teams.length > 0) {
         router.push(`/team/${userData.teams[0].id}`);
       } else {
-        router.push("/welcome");
+        router.push("/upload");
       }
       
     } catch (error: any) {

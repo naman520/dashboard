@@ -21,8 +21,8 @@ export default function TeamManager() {
     setError(null);
     try {
       const response = await axios.get(
-        //"http://localhost:5000/api/teams",
-        "https://dash-backend-vxau.onrender.com/api/teams",
+        "http://localhost:5000/api/teams",
+        //"https://dash-backend-vxau.onrender.com/api/teams",
         { withCredentials: true }
       );
       
@@ -43,8 +43,8 @@ export default function TeamManager() {
 
     try {
       const response = await axios.post(
-        //"http://localhost:5000/api/teams",
-        "https://dash-backend-vxau.onrender.com/api/teams",
+        "http://localhost:5000/api/teams",
+        //"https://dash-backend-vxau.onrender.com/api/teams",
         newTeam,
         { withCredentials: true }
       );
@@ -69,8 +69,8 @@ export default function TeamManager() {
     if (window.confirm('Are you sure you want to delete this team? Members will be moved to the default team.')) {
       try {
         await axios.delete(
-          //`http://localhost:5000/api/teams/${teamId}`,
-          `https://dash-backend-l5cs.onrender.com/api/teams/${teamId}`,
+          `http://localhost:5000/api/teams/${teamId}`,
+          //`https://dash-backend-l5cs.onrender.com/api/teams/${teamId}`,
           { withCredentials: true }
         );
         fetchTeams();

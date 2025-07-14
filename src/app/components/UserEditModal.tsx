@@ -40,8 +40,8 @@ export default function UserEditModal({ user, onClose, onUserUpdated, teams }: U
       };
 
       const response = await axios.put(
-        //`http://localhost:5000/api/auth/updateUser/${editedUser.id}`,
-        `https://dash-backend-l5cs.onrender.com/api/auth/updateUser/${editedUser.id}`,
+        `http://localhost:5000/api/auth/updateUser/${editedUser.id}`,
+        //`https://dash-backend-l5cs.onrender.com/api/auth/updateUser/${editedUser.id}`,
         updateData,
         { withCredentials: true }
       );

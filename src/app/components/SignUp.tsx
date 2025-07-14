@@ -61,8 +61,8 @@ export default function SignUp({ onClose, onUserAdded, teams }: SignUpProps) {
 
     try {
       const response = await axios.post(
-        //"http://localhost:5000/api/auth/register",
-       "https://dash-backend-l5cs.onrender.com/api/auth/register",
+       "http://localhost:5000/api/auth/register",
+       //"https://dash-backend-l5cs.onrender.com/api/auth/register",
         formData,
         { withCredentials: true }
       );

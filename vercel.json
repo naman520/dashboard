@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "https://bigbucket.online/LandX-Beta",
+      "destination": "dashboard-pearl-five-74.vercel.app/land-x"
+    }
+  ]
+}

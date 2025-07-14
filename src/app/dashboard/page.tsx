@@ -38,8 +38,8 @@ export default function Dashboard() {
   React.useEffect(() => {
     const fetchTeams = async () => {
       try {
-        //const response = await fetch("http://localhost:5000/api/teams", {
-        const response = await fetch("https://dash-backend-l5cs.onrender.com/api/teams", {
+        const response = await fetch("http://localhost:5000/api/teams", {
+        //const response = await fetch("https://dash-backend-l5cs.onrender.com/api/teams", {
           credentials: "include",
         });
         const data = await response.json();
