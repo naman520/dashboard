@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async rewrites() {
+    return [
+      {
+      source: "/LandX-Beta/:path*",
+      destination: "https://bigbucket.online/LandX-Beta/:path*"
+    }
+    ];
+  },
 };
 
 export default nextConfig;
