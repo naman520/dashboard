@@ -5,7 +5,7 @@ import type { NextRequest } from 'next/server';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const phpEndpoint = 'https://bigbucket.online/namanTest/dashboard.php';
+    const phpEndpoint = 'https://bigbucket.online/namanTest/config.php';
 
     const response = await fetch(phpEndpoint, {
       method: 'POST',
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
 // For GET requests
 export async function GET(request: NextRequest) {
   try {
-    const phpEndpoint = 'https://bigbucket.online/namanTest/dashboard.php';
+    const phpEndpoint = 'https://bigbucket.online/namanTest/config.php';
     const response = await fetch(phpEndpoint, {
       method: 'GET',
       headers: {
