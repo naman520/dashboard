@@ -1,4 +1,5 @@
 // app/page.tsx
+"use client"
 export default function Home() {
   const fetchData = async () => {
     try {
