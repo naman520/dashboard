@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/LandX-Beta/:path*",
-      "destination": "https://bigbucket.online/LandX-Beta/:path*"
-    }
-  ]
-}
